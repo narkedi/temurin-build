@@ -35,7 +35,7 @@ source "$SCRIPT_DIR/common/constants.sh"
 ALSA_LIB_VERSION=${ALSA_LIB_VERSION:-1.1.6}
 ALSA_LIB_CHECKSUM=${ALSA_LIB_CHECKSUM:-5f2cd274b272cae0d0d111e8a9e363f08783329157e8dd68b3de0c096de6d724}
 FREEMARKER_LIB_CHECKSUM=${FREEMARKER_LIB_CHECKSUM:-8723ec9ffe006e8d376b6c7dbe7950db34ad1fa163aef4026e6477151a1a0deb}
-FREETYPE_LIB_CHECKSUM=${FREETYPE_LIB_CHECKSUM:-ec391504e55498adceb30baceebd147a6e963f636eb617424bcfc47a169898ce}
+FREETYPE_LIB_CHECKSUM=${FREETYPE_LIB_CHECKSUM:-efe71fd4b8246f1b0b1b9bfca13cfff1c9ad85930340c27df469733bbb620938}
 
 FREETYPE_FONT_SHARED_OBJECT_FILENAME="libfreetype.so*"
 FREEMARKER_LIB_VERSION=${FREEMARKER_LIB_VERSION:-2.3.31}
@@ -452,11 +452,11 @@ checkingAndDownloadingFreeType() {
   if [[ -n "$FOUND_FREETYPE" ]]; then
     echo "Skipping FreeType download"
   else
-    downloadFile "freetype.tar.gz" "https://ci.adoptopenjdk.net/userContent/freetype/freetype-${BUILD_CONFIG[FREETYPE_FONT_VERSION]}.tar.gz"
-    downloadFile "freetype.tar.gz.sig" "https://ci.adoptopenjdk.net/userContent/freetype/freetype-${BUILD_CONFIG[FREETYPE_FONT_VERSION]}.tar.gz.sig"
-    checkFingerprint "freetype.tar.gz.sig" "freetype.tar.gz" "freetype" "58E0 C111 E39F 5408 C5D3 EC76 C1A6 0EAC E707 FDA5" "${FREETYPE_LIB_CHECKSUM}"
+    downloadFile "freetype.tar.gz" "https://openj9-jenkins.osuosl.org/userContent/freetype-${BUILD_CONFIG[FREETYPE_FONT_VERSION]}.tar.gz"
+    downloadFile "freetype.tar.gz.sig" "https://openj9-jenkins.osuosl.org/userContent/freetype-${BUILD_CONFIG[FREETYPE_FONT_VERSION]}.tar.gz.sig"
+    checkFingerprint "freetype.tar.gz.sig" "freetype.tar.gz" "freetype" "E306 7470 7856 409F F194 8010 BE6C 3AAC 63AD 8E3F" "${FREETYPE_LIB_CHECKSUM}"
 
-    FREETYPE_BUILD_INFO="https://ci.adoptopenjdk.net/userContent/freetype/freetype-${BUILD_CONFIG[FREETYPE_FONT_VERSION]}.tar.gz"
+    FREETYPE_BUILD_INFO="https://openj9-jenkins.osuosl.org/userContent/freetype-${BUILD_CONFIG[FREETYPE_FONT_VERSION]}.tar.gz"
 
     rm -rf "./freetype" || true
     mkdir -p "freetype" || true
