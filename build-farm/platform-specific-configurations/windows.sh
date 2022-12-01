@@ -115,6 +115,7 @@ then
   if [ "${VARIANT}" == "${BUILD_VARIANT_OPENJ9}" ]
   then
     export CONFIGURE_ARGS_FOR_ANY_PLATFORM="${CONFIGURE_ARGS_FOR_ANY_PLATFORM} --with-openssl=fetched --enable-openssl-bundling"
+    export BUILD_ARGS="${BUILD_ARGS} --with-msvcp-dll=/cygdrive/c/Windows/SysWOW64/msvcp140.dll --with-msvcr-dll=/cygdrive/c/Windows/SysWOW64/vcruntime140.dll"
     if [ "${JAVA_TO_BUILD}" == "${JDK8_VERSION}" ]
     then
       export BUILD_ARGS="${BUILD_ARGS} --skip-freetype"
@@ -158,6 +159,7 @@ then
     export HAS_AUTOCONF=1
     export CONFIGURE_ARGS_FOR_ANY_PLATFORM="${CONFIGURE_ARGS_FOR_ANY_PLATFORM} --with-openssl=fetched --enable-openssl-bundling"
     export CONFIGURE_ARGS_FOR_ANY_PLATFORM="${CONFIGURE_ARGS_FOR_ANY_PLATFORM} --with-freemarker-jar=/cygdrive/c/openjdk/freemarker.jar"
+    export BUILD_ARGS="${BUILD_ARGS} --with-msvcp-dll=/cygdrive/c/Windows/System32/msvcp140.dll --with-msvcr-dll=/cygdrive/c/Windows/System32/vcruntime140.dll"
 
     if [ "${JAVA_TO_BUILD}" == "${JDK8_VERSION}" ]
     then
@@ -176,7 +178,7 @@ then
     elif [ "$JAVA_FEATURE_VERSION" -ge 11 ]
     then
       TOOLCHAIN_VERSION="2019"
-      export BUILD_ARGS="${BUILD_ARGS} --skip-freetype"
+      export BUILD_ARGS="${BUILD_ARGS} --skip-freetype --with-vcruntime-1-dll=/cygdrive/c/Windows/System32/vcruntime140_1.dll"
     fi
 
     CUDA_VERSION=9.0
