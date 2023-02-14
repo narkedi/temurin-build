@@ -158,14 +158,13 @@ then
   then
     export HAS_AUTOCONF=1
     export CONFIGURE_ARGS_FOR_ANY_PLATFORM="${CONFIGURE_ARGS_FOR_ANY_PLATFORM} --with-openssl=fetched --enable-openssl-bundling"
-    export CONFIGURE_ARGS_FOR_ANY_PLATFORM="${CONFIGURE_ARGS_FOR_ANY_PLATFORM} --with-freemarker-jar=/cygdrive/c/openjdk/freemarker.jar"
+    export CONFIGURE_ARGS_FOR_ANY_PLATFORM="${CONFIGURE_ARGS_FOR_ANY_PLATFORM} --disable-ccache"
     export CONFIGURE_ARGS_FOR_ANY_PLATFORM="${CONFIGURE_ARGS_FOR_ANY_PLATFORM} --with-msvcp-dll=/cygdrive/c/Windows/System32/msvcp140.dll --with-msvcr-dll=/cygdrive/c/Windows/System32/vcruntime140.dll"
 
     if [ "${JAVA_TO_BUILD}" == "${JDK8_VERSION}" ]
     then
       export INCLUDE="C:\Program Files\Debugging Tools for Windows (x64)\sdk\inc;$INCLUDE"
       export PATH="$PATH:/c/cygwin64/bin"
-      export CONFIGURE_ARGS_FOR_ANY_PLATFORM="${CONFIGURE_ARGS_FOR_ANY_PLATFORM} --disable-ccache"
       export BUILD_ARGS="${BUILD_ARGS} --skip-freetype"
       TOOLCHAIN_VERSION="2017"
     elif [ "${JAVA_TO_BUILD}" == "${JDK9_VERSION}" ]
@@ -175,9 +174,14 @@ then
     elif [ "${JAVA_TO_BUILD}" == "${JDK10_VERSION}" ]
     then
       export BUILD_ARGS="${BUILD_ARGS} --freetype-version 2.5.3"
-    elif [ "$JAVA_FEATURE_VERSION" -ge 11 ]
+    elif [ "$JAVA_FEATURE_VERSION" -lt 19 ]
     then
       TOOLCHAIN_VERSION="2019"
+      export BUILD_ARGS="${BUILD_ARGS} --skip-freetype"
+      export CONFIGURE_ARGS_FOR_ANY_PLATFORM="${CONFIGURE_ARGS_FOR_ANY_PLATFORM} --with-vcruntime-1-dll=/cygdrive/c/Windows/System32/vcruntime140_1.dll"
+    elif [ "$JAVA_FEATURE_VERSION" -ge 19 ]
+    then
+      TOOLCHAIN_VERSION="2022"
       export BUILD_ARGS="${BUILD_ARGS} --skip-freetype"
       export CONFIGURE_ARGS_FOR_ANY_PLATFORM="${CONFIGURE_ARGS_FOR_ANY_PLATFORM} --with-vcruntime-1-dll=/cygdrive/c/Windows/System32/vcruntime140_1.dll"
     fi
@@ -209,7 +213,7 @@ then
     export CONFIGURE_ARGS_FOR_ANY_PLATFORM="${CONFIGURE_ARGS_FOR_ANY_PLATFORM} --disable-ccache"
     if [ "${JAVA_TO_BUILD}" == "${JDK8_VERSION}" ]
     then
-      export BUILD_ARGS="${BUILD_ARGS} --freetype-version 2.8.1"
+      export BUILD_ARGS="${BUILD_ARGS} --freetype-version 39ce3ac499d4cd7371031a062f410953c8ecce29" # 2.8.1
       export PATH="/cygdrive/c/openjdk/make-3.82/:$PATH"
     elif [ "$JAVA_FEATURE_VERSION" -ge 11 ]
     then
