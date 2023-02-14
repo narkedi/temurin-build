@@ -207,7 +207,8 @@ if [ "${VARIANT}" == "${BUILD_VARIANT_DRAGONWELL}" ] && [ "$JAVA_FEATURE_VERSION
   export CXX=/usr/local/gcc9/bin/g++-9.3
   # Enable GCC 10 for Java 17+ for repeatable builds, but not for our supported releases
   # Ref https://github.com/adoptium/temurin-build/issues/2787
-elif [ "$JAVA_FEATURE_VERSION" -ge 19 ] && [ -r /usr/local/gcc11/bin/gcc-11.2 ] && [ "${VARIANT}" != "${BUILD_VARIANT_OPENJ9}" ] ; then
+elif [ "$JAVA_FEATURE_VERSION" -ge 19 ] && [ -r /usr/local/gcc11/bin/gcc-11.2 ] && [ "${ARCHITECTURE}" != "aarch64" ] || [ "${VARIANT}" != "${BUILD_VARIANT_OPENJ9}" ] ; then
+  # For OpenJ9 Java 19 or later, use gcc 11.2 except on aarch64 Linux, due to https://github.com/eclipse-openj9/openj9/issues/15390
   export PATH=/usr/local/gcc11/bin:$PATH
   [ -r /usr/local/gcc11/bin/gcc-11.2 ] && export  CC=/usr/local/gcc11/bin/gcc-11.2
   [ -r /usr/local/gcc11/bin/g++-11.2 ] && export CXX=/usr/local/gcc11/bin/g++-11.2
