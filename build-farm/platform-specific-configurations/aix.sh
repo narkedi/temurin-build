@@ -126,7 +126,7 @@ fi
 
 if [ "$JAVA_FEATURE_VERSION" -ge 11 ]; then
   export LANG=C
-  export PATH=/opt/freeware/bin:$JAVA_HOME/bin:/usr/local/bin:/opt/IBM/xlC/16.1.0/bin:/opt/IBM/xlc/16.1.0/bin:$PATH
+  export PATH=/opt/cmake-3.17.1/bin/:/opt/freeware/bin:$JAVA_HOME/bin:/usr/local/bin:/opt/IBM/xlC/16.1.0/bin:/opt/IBM/xlc/16.1.0/bin:$PATH
   export CC=xlclang
   export CXX=xlclang++
 fi
